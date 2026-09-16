@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://peerone.in/salon-management-business/sitemap.xml
