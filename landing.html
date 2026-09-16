@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chairly — Salon Management, Simplified</title>
+<style>
+  :root {
+    --rose: #b5654f;
+    --rose-dark: #8f4a38;
+    --blush: #f7e9e3;
+    --cream: #fffaf6;
+    --charcoal: #2e2622;
+    --gold: #c99a5b;
+    --line: #e8d9d0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--cream);
+    color: var(--charcoal);
+    line-height: 1.6;
+  }
+
+  a { text-decoration: none; }
+
+  img, svg { display: block; }
+
+  .wrap {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* Header */
+  header.site {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--cream);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 0;
+  }
+
+  .brand {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--rose-dark);
+    letter-spacing: 0.5px;
+  }
+
+  .brand span {
+    color: var(--gold);
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    font-size: 0.95rem;
+  }
+
+  .nav-links a.plain {
+    color: var(--charcoal);
+    opacity: 0.85;
+  }
+
+  .nav-links a.plain:hover { opacity: 1; }
+
+  .btn {
+    display: inline-block;
+    padding: 12px 26px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .btn-primary {
+    background: var(--rose);
+    color: #fff;
+  }
+
+  .btn-primary:hover {
+    background: var(--rose-dark);
+    box-shadow: 0 6px 16px rgba(181, 101, 79, 0.35);
+  }
+
+  .btn-small {
+    padding: 9px 20px;
+    font-size: 0.88rem;
+  }
+
+  .btn-outline {
+    border: 1.5px solid var(--rose);
+    color: var(--rose-dark);
+    background: transparent;
+  }
+
+  .btn-outline:hover {
+    background: var(--blush);
+  }
+
+  /* Hero */
+  .hero {
+    background: linear-gradient(180deg, var(--blush) 0%, var(--cream) 100%);
+    padding: 80px 0 90px;
+    text-align: center;
+  }
+
+  .hero-tag {
+    display: inline-block;
+    background: #fff;
+    border: 1px solid var(--gold);
+    color: var(--rose-dark);
+    padding: 6px 16px;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-bottom: 24px;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.1rem, 5vw, 3.4rem);
+    color: var(--rose-dark);
+    line-height: 1.2;
+    max-width: 800px;
+    margin: 0 auto 20px;
+    font-weight: 800;
+  }
+
+  .hero p.lead {
+    max-width: 600px;
+    margin: 0 auto 34px;
+    font-size: 1.1rem;
+    color: #55483f;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .hero-note {
+    margin-top: 18px;
+    font-size: 0.85rem;
+    color: #8a7568;
+  }
+
+  /* Sections */
+  section {
+    padding: 76px 0;
+  }
+
+  .section-head {
+    text-align: center;
+    max-width: 620px;
+    margin: 0 auto 48px;
+  }
+
+  .section-head .eyebrow {
+    color: var(--gold);
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  .section-head h2 {
+    font-size: clamp(1.7rem, 3.5vw, 2.3rem);
+    margin-top: 10px;
+    color: var(--charcoal);
+  }
+
+  .section-head p {
+    margin-top: 14px;
+    color: #6b5c50;
+  }
+
+  /* Features grid */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 28px;
+  }
+
+  .feature-card {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 30px 26px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .feature-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 30px rgba(46, 38, 34, 0.08);
+  }
+
+  .feature-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    background: var(--blush);
+    color: var(--rose-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    margin-bottom: 18px;
+  }
+
+  .feature-card h3 {
+    font-size: 1.12rem;
+    margin-bottom: 10px;
+    color: var(--charcoal);
+  }
+
+  .feature-card p {
+    font-size: 0.95rem;
+    color: #6b5c50;
+  }
+
+  /* About / trust */
+  .about {
+    background: var(--rose-dark);
+    color: #fbf1ec;
+  }
+
+  .about .wrap {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 50px;
+    align-items: center;
+  }
+
+  .about h2 {
+    font-size: clamp(1.6rem, 3.2vw, 2.1rem);
+    margin-bottom: 18px;
+  }
+
+  .about p {
+    color: #f0dcd2;
+    margin-bottom: 16px;
+  }
+
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  .stat {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 14px;
+    padding: 24px 18px;
+    text-align: center;
+  }
+
+  .stat .num {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #fff;
+    display: block;
+  }
+
+  .stat .label {
+    font-size: 0.85rem;
+    color: #ecd6cb;
+    margin-top: 6px;
+  }
+
+  @media (max-width: 800px) {
+    .about .wrap {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* CTA band */
+  .cta-band {
+    text-align: center;
+    background: var(--blush);
+  }
+
+  .cta-band h2 {
+    font-size: clamp(1.6rem, 3.4vw, 2.2rem);
+    color: var(--rose-dark);
+    margin-bottom: 16px;
+  }
+
+  .cta-band p {
+    max-width: 520px;
+    margin: 0 auto 30px;
+    color: #6b5c50;
+  }
+
+  /* Footer */
+  footer.site {
+    background: var(--charcoal);
+    color: #d9cfc7;
+    padding: 50px 0 30px;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 30px;
+  }
+
+  .footer-grid h4 {
+    color: #fff;
+    font-size: 0.95rem;
+    margin-bottom: 14px;
+  }
+
+  .footer-grid p, .footer-grid a {
+    color: #b7aca4;
+    font-size: 0.9rem;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .footer-grid a:hover { color: #fff; }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 22px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    font-size: 0.82rem;
+    color: #a89e96;
+  }
+
+  @media (max-width: 700px) {
+    .footer-grid {
+      grid-template-columns: 1fr;
+    }
+    .nav-links a.plain { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap nav">
+    <div class="brand">Chair<span>ly</span></div>
+    <nav class="nav-links">
+      <a class="plain" href="#features">Features</a>
+      <a class="plain" href="#about">Why Chairly</a>
+      <a class="plain" href="login.html">Log in</a>
+      <a class="btn btn-primary btn-small" href="pay.html">Start free trial</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <span class="hero-tag">Built for salons, spas &amp; barbershops</span>
+      <h1>Run your salon like your chairs are never empty.</h1>
+      <p class="lead">
+        Chairly handles bookings, stylist schedules, client color histories, retail
+        sales and payments — so you can spend less time on paperwork and more time
+        behind the chair.
+      </p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="pay.html">Get started — $29/mo</a>
+        <a class="btn btn-outline" href="#features">See how it works</a>
+      </div>
+      <p class="hero-note">No contracts. Cancel anytime. Set up in one afternoon.</p>
+    </div>
+  </section>
+
+  <section id="features">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">What you get</span>
+        <h2>Everything your front desk juggles, in one place</h2>
+        <p>Six tools that replace the sticky notes, spreadsheets and group texts most salons run on.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">✂️</div>
+          <h3>Online booking</h3>
+          <p>Clients book with their favorite stylist from their phone, 24/7. Your chairs stay full without a single call.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🗓️</div>
+          <h3>Stylist scheduling</h3>
+          <p>Manage shifts, chair rentals, and time off across every stylist and station without the group-text chaos.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🎨</div>
+          <h3>Client color cards</h3>
+          <p>Store formulas, allergies, and service notes on every client so any stylist can pick up right where the last visit left off.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">💳</div>
+          <h3>Checkout &amp; tips</h3>
+          <p>Take cards, tap-to-pay, and split tips by stylist in seconds — no separate card reader app required.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📦</div>
+          <h3>Retail &amp; inventory</h3>
+          <p>Track shampoo, color, and retail stock automatically as it's used or sold at the counter.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📲</div>
+          <h3>No-show reminders</h3>
+          <p>Automatic texts confirm appointments and cut no-shows — most salons see them drop within the first month.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about" id="about">
+    <div class="wrap">
+      <div>
+        <h2>Built by people who've swept the floors too.</h2>
+        <p>
+          Chairly started after our founder spent a decade managing a busy downtown
+          salon on paper booking sheets and three different apps that never talked
+          to each other. We built the tool we wished we'd had.
+        </p>
+        <p>
+          Today, independent salons, barbershops, and spa suites use Chairly to run
+          their whole business — bookings, staff, retail, and payments — without
+          needing a tech person on staff.
+        </p>
+      </div>
+      <div class="stat-grid">
+        <div class="stat">
+          <span class="num">1,200+</span>
+          <span class="label">salons &amp; suites onboard</span>
+        </div>
+        <div class="stat">
+          <span class="num">32%</span>
+          <span class="label">avg. drop in no-shows</span>
+        </div>
+        <div class="stat">
+          <span class="num">4.8/5</span>
+          <span class="label">owner satisfaction rating</span>
+        </div>
+        <div class="stat">
+          <span class="num">15 min</span>
+          <span class="label">average setup time</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="wrap">
+      <h2>Ready to get your evenings back?</h2>
+      <p>Set up your salon in Chairly today and take your first online booking by tomorrow morning.</p>
+      <a class="btn btn-primary" href="pay.html">Start your free trial</a>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <h4>Chairly</h4>
+        <p>Salon management software for independent salons, barbershops, and spa suites who'd rather be doing hair than doing paperwork.</p>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <a href="#features">Features</a>
+        <a href="pay.html">Pricing</a>
+        <a href="login.html">Log in</a>
+      </div>
+      <div>
+        <h4>Support</h4>
+        <a href="#about">About us</a>
+        <a href="#">Help center</a>
+        <a href="#">Contact</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2024 Chairly. All rights reserved.</span>
+      <span>Made for people who work on their feet.</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
